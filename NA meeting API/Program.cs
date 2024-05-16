@@ -76,12 +76,11 @@ class Program
                     throw new Exception("Failed to fetch UTC offset. Offset data is null or incomplete.");
                 }
 
-                // Parse start_time and duration_time
                 DateTime startTime = DateTime.ParseExact(meeting.start_time, "HH:mm:ss", CultureInfo.InvariantCulture);
                 TimeSpan durationTime = TimeSpan.Parse(meeting.duration_time);
                 decimal utcOffsetDecimal = decimal.Parse(utcOffset);
 
-                // Calculate UTC start and end times
+       
                 DateTime utcStartTime = startTime.AddHours(-(double)utcOffsetDecimal);
                 DateTime utcEndTime = utcStartTime.Add(durationTime);
 
@@ -128,7 +127,7 @@ class Program
             await connection.OpenAsync();
             Console.WriteLine("Connected to SQL Server!");
 
-            // Check and create UTC_start_time and UTC_end_time columns if they don't exist
+            
             await EnsureColumnExists(connection, "Meetings", "UTC_start_time", "DATETIME");
             await EnsureColumnExists(connection, "Meetings", "UTC_end_time", "DATETIME");
 
