@@ -1,0 +1,6 @@
+@NA_meeting_API_HostAddress = http://localhost:5259
+
+GET {{NA_meeting_API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
