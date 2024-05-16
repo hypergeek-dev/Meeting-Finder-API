@@ -1,6 +1,11 @@
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 class Program
 {
@@ -30,7 +35,7 @@ class Program
 
     static async Task FetchAndSaveJsonData(string filePath)
     {
-        string jsonUrl = "https://bmlt.virtual-na.org/main_server/client_interface/jsonp/?switcher=GetSearchResults&get_used_formats&lang_enum=en&data_field_key=location_postal_code_1,duration_time,start_time,time_zone,weekday_tinyint,service_body_bigint,longitude,latitude,location_province,location_municipality,location_street,location_info,location_neighborhood,formats,format_shared_id_list,comments,meeting_name,location_sub_province,worldid_mixed,root_server_uri,id_bigint,venue_type,location_text,virtual_meeting_additional_info,virtual_meeting_link,phone_meeting_number,contact_name_1,contact_phone_1,contact_email_1,contact_name_2,contact_phone_2,contact_email_2,wheelchair&services[]=4&recursive=1&sort_keys=start_time&callback=";
+        string jsonUrl = "https://bmlt.virtual-na.org/main_server/client_interface/jsonp/?switcher=GetSearchResults&get_used_formats&lang_enum=en&data_field_key=location_postal_code_1,duration_time,start_time,time_zone,weekday_tinyint,service_body_bigint,longitude,latitude,location_province,location_municipality,location_street,location_info,location_neighborhood,formats,format_shared_id_list,meeting_name,location_sub_province,worldid_mixed,root_server_uri,id_bigint,venue_type,location_text,virtual_meeting_additional_info,virtual_meeting_link,phone_meeting_number,contact_name_1,contact_phone_1,contact_email_1,contact_name_2,contact_phone_2,contact_email_2,wheelchair&services[]=4&recursive=1&sort_keys=start_time&callback=";
 
         using (var httpClient = new HttpClient())
         {
@@ -104,7 +109,6 @@ class Program
                     location_sub_province = meeting.location_sub_province,
                     location_province = meeting.location_province,
                     location_postal_code_1 = meeting.location_postal_code_1,
-                    comments = meeting.comments,
                     contact_phone_2 = meeting.contact_phone_2,
                     contact_email_2 = meeting.contact_email_2,
                     contact_name_2 = meeting.contact_name_2,
@@ -161,7 +165,7 @@ class Program
                                    "longitude, latitude, root_server_uri, format_shared_id_list, meeting_name, " +
                                    "location_text, location_info, location_street, location_neighborhood, " +
                                    "location_municipality, location_sub_province, location_province, " +
-                                   "location_postal_code_1, comments, contact_phone_2, contact_email_2, " +
+                                   "location_postal_code_1, contact_phone_2, contact_email_2, " +
                                    "contact_name_2, contact_phone_1, contact_email_1, contact_name_1, " +
                                    "phone_meeting_number, virtual_meeting_link, virtual_meeting_additional_info, " +
                                    "UTC_offset, UTC_start_time, UTC_end_time) " +
@@ -170,7 +174,7 @@ class Program
                                    "@formats, @longitude, @latitude, @root_server_uri, @format_shared_id_list, " +
                                    "@meeting_name, @location_text, @location_info, @location_street, " +
                                    "@location_neighborhood, @location_municipality, @location_sub_province, " +
-                                   "@location_province, @location_postal_code_1, @comments, @contact_phone_2, " +
+                                   "@location_province, @location_postal_code_1, @contact_phone_2, " +
                                    "@contact_email_2, @contact_name_2, @contact_phone_1, @contact_email_1, " +
                                    "@contact_name_1, @phone_meeting_number, @virtual_meeting_link, " +
                                    "@virtual_meeting_additional_info, @UTC_offset, @UTC_start_time, @UTC_end_time)";
@@ -199,7 +203,6 @@ class Program
                         command.Parameters.AddWithValue("@location_sub_province", meeting.location_sub_province);
                         command.Parameters.AddWithValue("@location_province", meeting.location_province);
                         command.Parameters.AddWithValue("@location_postal_code_1", meeting.location_postal_code_1);
-                        command.Parameters.AddWithValue("@comments", meeting.comments);
                         command.Parameters.AddWithValue("@contact_phone_2", meeting.contact_phone_2);
                         command.Parameters.AddWithValue("@contact_email_2", meeting.contact_email_2);
                         command.Parameters.AddWithValue("@contact_name_2", meeting.contact_name_2);
@@ -321,7 +324,6 @@ class Program
         public string location_sub_province { get; set; }
         public string location_province { get; set; }
         public string location_postal_code_1 { get; set; }
-        public string comments { get; set; }
         public string contact_phone_2 { get; set; }
         public string contact_email_2 { get; set; }
         public string contact_name_2 { get; set; }
