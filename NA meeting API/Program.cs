@@ -87,9 +87,6 @@ class Program
 
                 processedMeetings.Add(new ProcessedMeeting
                 {
-                    id_bigint = meeting.id_bigint,
-                    worldid_mixed = meeting.worldid_mixed,
-                    service_body_bigint = meeting.service_body_bigint,
                     weekday_tinyint = meeting.weekday_tinyint,
                     venue_type = meeting.venue_type,
                     start_time = meeting.start_time,
@@ -98,23 +95,8 @@ class Program
                     formats = meeting.formats,
                     longitude = meeting.longitude,
                     latitude = meeting.latitude,
-                    root_server_uri = meeting.root_server_uri,
                     format_shared_id_list = meeting.format_shared_id_list,
                     meeting_name = meeting.meeting_name,
-                    location_text = meeting.location_text,
-                    location_info = meeting.location_info,
-                    location_street = meeting.location_street,
-                    location_neighborhood = meeting.location_neighborhood,
-                    location_municipality = meeting.location_municipality,
-                    location_sub_province = meeting.location_sub_province,
-                    location_province = meeting.location_province,
-                    location_postal_code_1 = meeting.location_postal_code_1,
-                    contact_phone_2 = meeting.contact_phone_2,
-                    contact_email_2 = meeting.contact_email_2,
-                    contact_name_2 = meeting.contact_name_2,
-                    contact_phone_1 = meeting.contact_phone_1,
-                    contact_email_1 = meeting.contact_email_1,
-                    contact_name_1 = meeting.contact_name_1,
                     phone_meeting_number = meeting.phone_meeting_number,
                     virtual_meeting_link = meeting.virtual_meeting_link,
                     virtual_meeting_additional_info = meeting.virtual_meeting_additional_info,
@@ -160,30 +142,15 @@ class Program
             {
                 try
                 {
-                    string query = "INSERT INTO Meetings (id_bigint, worldid_mixed, service_body_bigint, " +
-                                   "weekday_tinyint, venue_type, start_time, duration_time, time_zone, formats, " +
-                                   "longitude, latitude, root_server_uri, format_shared_id_list, meeting_name, " +
-                                   "location_text, location_info, location_street, location_neighborhood, " +
-                                   "location_municipality, location_sub_province, location_province, " +
-                                   "location_postal_code_1, contact_phone_2, contact_email_2, " +
-                                   "contact_name_2, contact_phone_1, contact_email_1, contact_name_1, " +
-                                   "phone_meeting_number, virtual_meeting_link, virtual_meeting_additional_info, " +
-                                   "UTC_offset, UTC_start_time, UTC_end_time) " +
-                                   "VALUES (@id_bigint, @worldid_mixed, @service_body_bigint, " +
-                                   "@weekday_tinyint, @venue_type, @start_time, @duration_time, @time_zone, " +
-                                   "@formats, @longitude, @latitude, @root_server_uri, @format_shared_id_list, " +
-                                   "@meeting_name, @location_text, @location_info, @location_street, " +
-                                   "@location_neighborhood, @location_municipality, @location_sub_province, " +
-                                   "@location_province, @location_postal_code_1, @contact_phone_2, " +
-                                   "@contact_email_2, @contact_name_2, @contact_phone_1, @contact_email_1, " +
-                                   "@contact_name_1, @phone_meeting_number, @virtual_meeting_link, " +
+                    string query = "INSERT INTO Meetings (weekday_tinyint, venue_type, start_time, duration_time, time_zone, formats, " +
+                                   "longitude, latitude, format_shared_id_list, meeting_name, phone_meeting_number, virtual_meeting_link, " +
+                                   "virtual_meeting_additional_info, UTC_offset, UTC_start_time, UTC_end_time) " +
+                                   "VALUES (@weekday_tinyint, @venue_type, @start_time, @duration_time, @time_zone, @formats, " +
+                                   "@longitude, @latitude, @format_shared_id_list, @meeting_name, @phone_meeting_number, @virtual_meeting_link, " +
                                    "@virtual_meeting_additional_info, @UTC_offset, @UTC_start_time, @UTC_end_time)";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@id_bigint", meeting.id_bigint);
-                        command.Parameters.AddWithValue("@worldid_mixed", meeting.worldid_mixed);
-                        command.Parameters.AddWithValue("@service_body_bigint", meeting.service_body_bigint);
                         command.Parameters.AddWithValue("@weekday_tinyint", meeting.weekday_tinyint);
                         command.Parameters.AddWithValue("@venue_type", meeting.venue_type);
                         command.Parameters.AddWithValue("@start_time", meeting.start_time);
@@ -192,23 +159,8 @@ class Program
                         command.Parameters.AddWithValue("@formats", meeting.formats);
                         command.Parameters.AddWithValue("@longitude", meeting.longitude);
                         command.Parameters.AddWithValue("@latitude", meeting.latitude);
-                        command.Parameters.AddWithValue("@root_server_uri", meeting.root_server_uri);
                         command.Parameters.AddWithValue("@format_shared_id_list", meeting.format_shared_id_list);
                         command.Parameters.AddWithValue("@meeting_name", meeting.meeting_name);
-                        command.Parameters.AddWithValue("@location_text", meeting.location_text);
-                        command.Parameters.AddWithValue("@location_info", meeting.location_info);
-                        command.Parameters.AddWithValue("@location_street", meeting.location_street);
-                        command.Parameters.AddWithValue("@location_neighborhood", meeting.location_neighborhood);
-                        command.Parameters.AddWithValue("@location_municipality", meeting.location_municipality);
-                        command.Parameters.AddWithValue("@location_sub_province", meeting.location_sub_province);
-                        command.Parameters.AddWithValue("@location_province", meeting.location_province);
-                        command.Parameters.AddWithValue("@location_postal_code_1", meeting.location_postal_code_1);
-                        command.Parameters.AddWithValue("@contact_phone_2", meeting.contact_phone_2);
-                        command.Parameters.AddWithValue("@contact_email_2", meeting.contact_email_2);
-                        command.Parameters.AddWithValue("@contact_name_2", meeting.contact_name_2);
-                        command.Parameters.AddWithValue("@contact_phone_1", meeting.contact_phone_1);
-                        command.Parameters.AddWithValue("@contact_email_1", meeting.contact_email_1);
-                        command.Parameters.AddWithValue("@contact_name_1", meeting.contact_name_1);
                         command.Parameters.AddWithValue("@phone_meeting_number", meeting.phone_meeting_number);
                         command.Parameters.AddWithValue("@virtual_meeting_link", meeting.virtual_meeting_link);
                         command.Parameters.AddWithValue("@virtual_meeting_additional_info", meeting.virtual_meeting_additional_info);
@@ -302,9 +254,6 @@ class Program
 
     public class Meeting
     {
-        public string id_bigint { get; set; }
-        public string worldid_mixed { get; set; }
-        public string service_body_bigint { get; set; }
         public string weekday_tinyint { get; set; }
         public string venue_type { get; set; }
         public string start_time { get; set; }
@@ -313,23 +262,8 @@ class Program
         public string formats { get; set; }
         public string longitude { get; set; }
         public string latitude { get; set; }
-        public string root_server_uri { get; set; }
         public string format_shared_id_list { get; set; }
         public string meeting_name { get; set; }
-        public string location_text { get; set; }
-        public string location_info { get; set; }
-        public string location_street { get; set; }
-        public string location_neighborhood { get; set; }
-        public string location_municipality { get; set; }
-        public string location_sub_province { get; set; }
-        public string location_province { get; set; }
-        public string location_postal_code_1 { get; set; }
-        public string contact_phone_2 { get; set; }
-        public string contact_email_2 { get; set; }
-        public string contact_name_2 { get; set; }
-        public string contact_phone_1 { get; set; }
-        public string contact_email_1 { get; set; }
-        public string contact_name_1 { get; set; }
         public string phone_meeting_number { get; set; }
         public string virtual_meeting_link { get; set; }
         public string virtual_meeting_additional_info { get; set; }
